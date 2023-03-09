@@ -1,0 +1,26 @@
+version: '2'
+
+services:
+  app:
+    image: 'biblioteca'
+    build:
+      context: .
+    container_name: app
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/ejemplo
+      - SPRING_DATASOURCE_USERNAME=user
+      - SPRING_DATASOURCE_PASSWORD=root
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    ports:
+      - 8080:8080
+
+  db:
+    image: 'mariadb'
+    container_name: db
+    environment:
+      - MARIADB_DATABASE=ejemplo
+      - MARIADB_USER=user
+      - MARIADB_PASSWORD=root
+      - MARIADB_ROOT_PASSWORD=root
